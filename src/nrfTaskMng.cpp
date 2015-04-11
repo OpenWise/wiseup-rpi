@@ -88,8 +88,6 @@ nrfActionTaskMng::apiAddTask (sensor_info_t sensor, rfcomm_data* packet) {
 	task.timestamp = CommonMethods::getTimestampMillis();
 	memcpy (&task.packet, packet, sizeof (rfcomm_data));
 
-	printf ("(nrfActionTaskMng) [apiAddTask] ADDING TO RESEND (%lld)\n", sensor.sensorAddress);
-
 	pthread_mutex_lock (&m_lock.mutex);
 	m_tasks.push_back (task);
 	pthread_mutex_unlock (&m_lock.mutex);
@@ -98,10 +96,8 @@ nrfActionTaskMng::apiAddTask (sensor_info_t sensor, rfcomm_data* packet) {
 void
 nrfActionTaskMng::apiRemoveTask (long long sensorAddress) {
 	pthread_mutex_lock (&m_lock.mutex);
-    printf ("(nrfActionTaskMng) [apiRemoveTask] REMOVE %lld\n", sensorAddress);
 	for (std::vector<nrf_action_task>::iterator item = m_tasks.begin(); item != m_tasks.end(); ++item) {
 		if (item->sensor.sensorAddress == sensorAddress) {
-            printf ("(nrfActionTaskMng) [apiRemoveTask] REMOVE\n");
 			m_tasks.erase (item);
 			pthread_mutex_unlock (&m_lock.mutex);
 			return;

@@ -1,0 +1,34 @@
+#! /bin/sh
+# Starts and stops wiseup-comm
+# /etc/init.d/wiseup-comm
+### BEGIN INIT INFO
+# Provides: wiseup-comm
+# Required-Start:   $syslog
+# Required-Stop:    $syslog
+# Default-Start:    2 3 4 5
+# Default-Stop:     0 1 6
+# Short-Description:    wiseup-comm
+### END INIT INFO
+
+case "$1" in
+    start)
+        echo "# [START] Wiseup COMM service ..."
+        cd /home/pi/workspace/wiseup-rpi/build/src
+        sudo screen -dmS wiseup-comm ./wiseup
+        ;;
+
+    stop) 
+        echo "# [STOP] Wiseup COMM service ..."    
+        sudo screen -S wiseup-comm -X quit
+        ;;
+
+    restart)
+        echo "# [RESTART] Wiseup COMM service ..."
+        $0 stop
+        $0 start
+        ;;
+    *)
+        echo "Usage: $0 {start|stop|restart}"
+        exit 1
+        ;;
+esac

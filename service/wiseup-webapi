@@ -1,0 +1,34 @@
+#! /bin/sh
+# Starts and stops wiseup-webapi
+# /etc/init.d/wiseup-webapi
+### BEGIN INIT INFO
+# Provides: wiseup-webapi
+# Required-Start:   $syslog
+# Required-Stop:    $syslog
+# Default-Start:    2 3 4 5
+# Default-Stop:     0 1 6
+# Short-Description:    wiseup-webapi
+### END INIT INFO
+
+case "$1" in
+    start)
+        echo "# [START] Wiseup node back-end service ..."
+        cd /home/pi/workspace/wiseup-rpi/node-backend
+        sudo screen -dmS wiseup-webapi node web-api.js
+        ;;
+
+    stop) 
+        echo "# [STOP] Wiseup node back-end service ..."    
+        sudo screen -S wiseup-webapi -X quit
+        ;;
+
+    restart)
+        echo "# [RESTART] Wiseup node back-end service ..."
+        $0 stop
+        $0 start
+        ;;
+    *)
+        echo "Usage: $0 {start|stop|restart}"
+        exit 1
+        ;;
+esac

@@ -160,10 +160,6 @@ void subCallback(redisAsyncContext *c, void *r, void *priv) {
 			} else {
 				long long   sensorAddress	= root.get("id", 0).asInt64();
 				int         sensorAction	= root.get("action", 0).asInt();
-				
-				std::cout  	<< "Sensor action request:\n"
-							<< "Address = " << sensorAddress << "\n"
-							<< "Action  = " << sensorAction << "\n";
 				clientHandler->sendSensorCommand (sensorAddress, sensorAction);
 			}
         }

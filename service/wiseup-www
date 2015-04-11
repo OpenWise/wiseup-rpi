@@ -1,0 +1,34 @@
+#! /bin/sh
+# Starts and stops wiseup-www
+# /etc/init.d/wiseup-www
+### BEGIN INIT INFO
+# Provides: wiseup-www
+# Required-Start:   $syslog
+# Required-Stop:    $syslog
+# Default-Start:    2 3 4 5
+# Default-Stop:     0 1 6
+# Short-Description:    wiseup-www
+### END INIT INFO
+
+case "$1" in
+    start)
+        echo "# [START] Wiseup web application service ..."
+        cd /home/pi/workspace/wiseup-rpi/node-www
+        sudo screen -dmS wiseup-www node webserver.js
+        ;;
+
+    stop) 
+        echo "# [STOP] Wiseup web application service ..."    
+        sudo screen -S wiseup-www -X quit
+        ;;
+
+    restart)
+        echo "# [RESTART] Wiseup web application service ..."
+        $0 stop
+        $0 start
+        ;;
+    *)
+        echo "Usage: $0 {start|stop|restart}"
+        exit 1
+        ;;
+esac

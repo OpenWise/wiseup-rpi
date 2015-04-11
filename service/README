@@ -1,0 +1,3 @@
+# sudo chmod +x /etc/init.d/wiseup-webapi
+# sudo update-rc.d wiseup-www defaults
+# sudo service XXX start|stop|restart

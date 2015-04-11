@@ -214,8 +214,6 @@ WiseClientHandler::sendSensorCommand (long long sensorAddr, int cmd) {
 	long long 	hostAddr = getSensorHubAddress (sensorAddr);
 	uint8_t		sensorId = getSensorId (sensorAddr);
 	
-	printf ("!!!!!!!!!!!!!!!!! %lld, %d, %d\n", hostAddr, sensorId, cmd);
-	
 	uint8_t destination[5] = {0};
 	memcpy (destination, &hostAddr, 5);
 	
